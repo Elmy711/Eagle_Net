@@ -80,9 +80,9 @@ def countdown_with_stats(t, stats=None):
             if stats:
                 rps = (stats['total'] - last_total) / 1.0
                 last_total = stats['total']
-                print(f"\r[*] {remaining:.1f}s | Total: {stats['total']} | RPS: {rps:.1f} | Errors: {stats['errors']}   ", end='')
+                print(f"\r ⏳ {remaining:.1f}s | Total: {stats['total']} | RPS: {rps:.1f} | Errors: {stats['errors']}   ", end='')
             else:
-                print(f"\r ⏳ Attack status => {remaining:.1f} sec left ", end='')
+                print(f"\r 🚀 Attack status => {remaining:.1f} sec left ", end='')
             sys.stdout.flush()
         else:
             if stats:
