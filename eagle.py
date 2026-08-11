@@ -975,7 +975,7 @@ def interactive():
         proxies = []
     while True:
         try:
-            cmd = input("cilok> ").strip().lower()
+            cmd = input(" EAGLE NET > ").strip().lower()
         except (EOFError, KeyboardInterrupt):
             print("\nExiting.")
             break
