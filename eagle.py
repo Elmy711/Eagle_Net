@@ -82,13 +82,13 @@ def countdown_with_stats(t, stats=None):
                 last_total = stats['total']
                 print(f"\r[*] {remaining:.1f}s | Total: {stats['total']} | RPS: {rps:.1f} | Errors: {stats['errors']}   ", end='')
             else:
-                print(f"\r[*] Attack status => {remaining:.1f} sec left ", end='')
+                print(f"\r ⏳ Attack status => {remaining:.1f} sec left ", end='')
             sys.stdout.flush()
         else:
             if stats:
-                print(f"\r[*] Attack Done! Total: {stats['total']} | Errors: {stats['errors']}                                   ")
+                print(f"\r 🎯 Attack Done! Total: {stats['total']} | Errors: {stats['errors']}                                   ")
             else:
-                print("\r[*] Attack Done !                                   ")
+                print("\r 🎯 Attack Done !                                   ")
             return
         time.sleep(1)
 
